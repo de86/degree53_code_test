@@ -18,7 +18,9 @@ class RepoListContainer extends Component {
         return (
             <div>
                 <RepoSearchField searchRepos={this.searchRepos}/>
-                <RepoList />
+                <RepoList
+                    hasRepos={this.props.appState.fetched}
+                    repos={this.props.repos}/>
             </div>
         )
     }
@@ -42,7 +44,8 @@ class RepoListContainer extends Component {
 // Makes store data available through props
 function mapStateToProps(state) {
     return {
-        repos: state.repos
+        repos: state.repos,
+        appState: state.appState
     }
 };
 
