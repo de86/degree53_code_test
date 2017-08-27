@@ -7,7 +7,7 @@ import repoReducer from '../reducers/repoReducer';
 // Combine our multiple imported reducers into one
 // which we can then pass to our store
 const reducers = combineReducers({
-    repo: repoReducer
+    repos: repoReducer
 });
 
 // Save our middleare so we can pass this to our store

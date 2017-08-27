@@ -3,7 +3,10 @@ const repoReducer = function(state={}, action) {
         case "FETCH_REPO_PENDING": {
             return {
                 ...state,
+                repoToSearch: action.repoToSearch,
                 fetching: true,
+                error: null,
+                repos: null
             };
         }
         case "FETCH_REPO_SUCCESS": {
@@ -19,7 +22,8 @@ const repoReducer = function(state={}, action) {
                 ...state,
                 fetching: false,
                 fetched: false,
-                error: action.error
+                error: action.error,
+                repos: null
             }
         }
         default: {

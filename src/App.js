@@ -1,20 +1,16 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
+import RepoListContainer from './containers/RepoListContainer';
+
 class App extends React.Component {
   render() {
     return (
       <div className="App">
-        Hello World
+        <RepoListContainer />
       </div>
     );
   }
 }
 
-function mapStateToProps (state) {
-  return {
-    repos: state.repos
-  }
-}
-
-export default connect(mapStateToProps)(App);
+export default App;
