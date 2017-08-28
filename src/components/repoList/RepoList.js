@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
-import RepoItem from './RepoItem';
+import RepoListItem from './RepoListItem';
+
+import styles from './RepoList.css';
 
 class RepoList extends Component {
     constructor(props) {
@@ -18,8 +21,7 @@ class RepoList extends Component {
         } else if(appState.fetched) {
             return (
                 <div>
-                    <h2>Search Results:</h2>
-                    <ul>
+                    <ul className={styles.repoList}>
                         { Object.keys(retrievedRepos).map(this.renderRepoItem) }
                     </ul>
                 </div>
@@ -27,7 +29,7 @@ class RepoList extends Component {
         } else if(appState.error != null){
             return <h2>Oops, something went wrong. Try searching again!</h2>
         } else {
-            return <h2>Search for a github repo above</h2>
+            return null;
         };
     }
 
@@ -35,7 +37,7 @@ class RepoList extends Component {
         const repo = this.props.repos.retrieved[key];
 
         return (
-            <RepoItem 
+            <RepoListItem 
                 key={repo.id}
                 id={repo.id}
                 name={repo.name}
@@ -43,6 +45,13 @@ class RepoList extends Component {
                 setRepoIdToView={this.props.setRepoIdToView}/>
         )
     }
+}
+
+RepoList.PropTypes = {
+    appState: PropTypes.object.isRequired,
+    repos: PropTypes.object.isRequired,
+    getRepoReadme: PropTypes.func.isRequired,
+    setRepoIdToView: PropTypes.func.isRequired
 }
 
 export default RepoList;

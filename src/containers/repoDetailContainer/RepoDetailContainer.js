@@ -1,13 +1,16 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
-import RepoDetails from '../components/repoDetails/RepoDetails'
-import RepoDetailsReadme from '../components/repoDetails/RepoDetailsReadme'
+import RepoDetails from '../../components/repoDetailsView/repoDetails/RepoDetails'
+import RepoDetailsReadme from '../../components/repoDetailsView/repoDetailsReadme/RepoDetailsReadme'
 
-import * as detailActionCreators from '../actions/detailActionCreators';
+import * as detailActionCreators from '../../actions/detailActionCreators';
 
-import { getReadme } from '../api/github';
+import { getReadme } from '../../api/github';
+
+import commonStyles from '../../resources/css/common.css';
 
 class RepoDetailView extends Component {
     constructor(props) {
@@ -24,15 +27,20 @@ class RepoDetailView extends Component {
             const repoDetails = this.getRepoDetails(this.props.repoId);
 
             detailViewContent = 
-                <div>
+                <div className={ commonStyles.padding }>
                     <RepoDetails repo={repoDetails} />
-                    <button onClick={() => this.getRepoReadme(repoDetails.owner.login, repoDetails.name)}>
-                        View readme
-                    </button>
-                    <RepoDetailsReadme readmeText={this.props.readmeText} />
+                    <div className={ commonStyles.padding }>
+                        <button onClick={() => this.getRepoReadme(repoDetails.owner.login, repoDetails.name)}>
+                            View readme
+                        </button>
+                        { this.props.readmeText ? <RepoDetailsReadme readmeText={this.props.readmeText} /> : null }
+                    </div>
                 </div>;
         } else {
-            detailViewContent = <h4>Please click on a repository name to view more details</h4>
+            detailViewContent = 
+                <div className={ commonStyles.padding }>
+                    <h4>Please search for a repository on the left then click on a result to view more details</h4>
+                </div>
         }
         
         return (
@@ -58,6 +66,15 @@ class RepoDetailView extends Component {
     getRepoReadme(owner, repoName) {
         getReadme(owner, repoName, this.props.fetchReadmeSuccess, this.props.fetchReadmeFail);
     }
+}
+
+RepoDetailView.PropTypes = {
+    repos: PropTypes.any.isRequired,
+    repoId: PropTypes.any.isRequired,
+    readmeText: PropTypes.any.isRequired,
+    fetchReadmeSuccess: PropTypes.func.isRequired,
+    fetchReadmeFail: PropTypes.func.isRequired
+
 }
 
 function mapStateToProps(state){

@@ -23,7 +23,6 @@ export const getRepos = (searchString, successHandler, errorHandler) => {
 export const getReadme = (owner, repoName, successHandler, errorHandler) => {
     axios.get(`${config.getReadmeUrl}/${owner}/${repoName}/readme`)
         .then((response) => {
-            console.log(response.data.download_url);
             getReadmeText(response.data.download_url, successHandler, errorHandler)
         })
         .catch((err) => {

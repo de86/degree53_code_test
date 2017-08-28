@@ -2,15 +2,17 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import axios from 'axios';
+import PropTypes from 'prop-types';
 
-import RepoDetailContainer from './RepoDetailContainer';
-import RepoList from '../components/repoList/RepoList';
-import RepoSearchField from '../components/repoList/RepoSearchField';
+import RepoList from '../../components/repoList/RepoList';
+import RepoSearchField from '../../components/repoList/RepoSearchField';
 
-import * as searchActionCreators from '../actions/searchActionCreators';
-import * as detailActionCreators from '../actions/detailActionCreators';
+import * as searchActionCreators from '../../actions/searchActionCreators';
+import * as detailActionCreators from '../../actions/detailActionCreators';
 
-import { getRepos } from '../api/github';
+import { getRepos } from '../../api/github';
+
+import commonStyles from '../../resources/css/common.css'
 
 class RepoListContainer extends Component {
     constructor(props) {
@@ -22,19 +24,12 @@ class RepoListContainer extends Component {
 
     render() {
         return (
-            <div className="container-fluid">
-                <div className="row">
-                    <div className="col-sm-4">
-                        <RepoSearchField searchRepos={this.searchRepos}/>
-                        <RepoList
-                            appState={this.props.appState}
-                            repos={this.props.repos}
-                            setRepoIdToView={this.setRepoIdToView} />
-                    </div>
-                    <div className="col-sm-8">
-                        <RepoDetailContainer />
-                    </div>
-                </div>
+            <div className={commonStyles.padding}>
+                <RepoSearchField searchRepos={this.searchRepos}/>
+                <RepoList
+                    appState={this.props.appState}
+                    repos={this.props.repos}
+                    setRepoIdToView={this.setRepoIdToView} />
             </div>
         )
     }
@@ -54,6 +49,15 @@ class RepoListContainer extends Component {
             this.props.setDetailViewId(id);
         }
     }
+}
+
+RepoListContainer.PropTypes = {
+    repos: PropTypes.any.isRequired,
+    appState: PropTypes.object.isRequired,
+    fetchRepoPending: PropTypes.func.isRequired,
+    fetchRepoSuccess: PropTypes.func.isRequired,
+    fetchRepoFail: PropTypes.func.isRequired,
+    setDetailViewId: PropTypes.func.isRequired
 }
 
 // Makes store data available through props

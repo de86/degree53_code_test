@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+
+import styles from './RepoSearchField.css';
 
 class RepoSearchField extends Component {
     constructor(props) {
@@ -9,16 +12,16 @@ class RepoSearchField extends Component {
 
     render() {
         return (
-            <form onSubmit={this.handleClick}>
-                <label htmlFor="repo-search" className="">
-                    Search Repo's:
+            <div>
+                <h2>Search Repositories</h2>
+                <form onSubmit={this.handleClick}>
                     <input
                         type="text"
                         name="repo-search"
                         ref={(input) => {this.input = input}} />
                     <input type="submit" value="Search"></input>
-                </label>
-            </form>
+                </form>
+            </div>
         )
     }
 
@@ -26,6 +29,10 @@ class RepoSearchField extends Component {
         event.preventDefault();
         this.props.searchRepos(this.input.value)
     }
+}
+
+RepoSearchField.PropTypes = {
+    searchRepos: PropTypes.func.isRequired
 }
 
 export default RepoSearchField;

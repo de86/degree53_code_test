@@ -1,0 +1,13 @@
+.repoDetailsContainer {
+    display: -webkit-flex;
+    display: flex;
+}
+
+.avatarContainer {
+    padding-top: 0;
+}
+
+.detailsContainer {
+    -webkit-flex: 1;
+    flex: 1;
+}
