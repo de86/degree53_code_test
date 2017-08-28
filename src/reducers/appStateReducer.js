@@ -3,6 +3,7 @@ const appStateReducer = function(state={}, action) {
         case "FETCH_REPO_PENDING": {
             return {
                 ...state,
+                detailRepoId: null,
                 error: null,
                 fetched: false,
                 fetching: true,
@@ -12,6 +13,7 @@ const appStateReducer = function(state={}, action) {
         case "FETCH_REPO_SUCCESS": {
             return {
                 ...state,
+                detailRepoId: null,
                 error: null,
                 fetched: true,
                 fetching: false,
@@ -21,10 +23,17 @@ const appStateReducer = function(state={}, action) {
         case "FETCH_REPO_FAIL": {
             return {
                 ...state,
+                detailRepoId: null,
                 error: action.error,
                 fetched: false,
                 fetching: false,
                 repoToSearch: null
+            }
+        }
+        case "SET_DETAIL_VIEW_ID": {
+            return {
+                ...state,
+                detailRepoId: action.repoId
             }
         }
         default: {
