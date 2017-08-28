@@ -12,9 +12,9 @@ export const fetchRepoSuccess = (repos) => {
     };
 };
 
-export const fetchRepoFail = (err) => {
+export const fetchRepoFail = (error) => {
     return {
         type: "FETCH_REPO_FAIL",
-        error: err
+        error: error
     };
 };

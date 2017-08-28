@@ -10,6 +10,8 @@ import RepoSearchField from '../components/repoList/RepoSearchField';
 import * as searchActionCreators from '../actions/searchActionCreators';
 import * as detailActionCreators from '../actions/detailActionCreators';
 
+import { getRepos } from '../api/github';
+
 class RepoListContainer extends Component {
     constructor(props) {
         super(props);
@@ -41,17 +43,10 @@ class RepoListContainer extends Component {
     // github. saves repos in our store if succesfull else saves the error
     searchRepos(searchString) {
         this.props.fetchRepoPending(searchString);
-        const getUrl = `https://api.github.com/search/repositories?q=${searchString}`
-
-        axios.get(getUrl)
-            .then((response) => {
-                this.props.fetchRepoSuccess(response.data.items);
-            })
-            .catch((err) => {
-                this.props.fetchRepoFail(err);
-            });
+        getRepos(searchString, this.props.fetchRepoSuccess, this.props.fetchRepoFail);
     }
 
+    // Saves the given repo ID in our store
     setRepoIdToView(id) {
         // Prevent another dispatch and re-render if we are already viewing
         // the given ID

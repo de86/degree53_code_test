@@ -6,8 +6,23 @@ const appStateReducer = function(state={}, action) {
                 detailRepoId: null,
                 error: null,
                 fetched: false,
-                fetching: true,
+                fetchingReadme: false,
+                fetchingRepos: true,
                 repoToSearch: action.repoToSearch
+            }
+        }
+        case "FETCH_README_SUCCESS": {
+            return {
+                ...state,
+                readmeText: action.readmeText,
+            }
+        }
+        case "FETCH_README_FAIL": {
+            return {
+                ...state,
+                fetchingReadme: false,
+                readmeText: action.failText,
+                error: action.error
             }
         }
         case "FETCH_REPO_SUCCESS": {
@@ -16,7 +31,8 @@ const appStateReducer = function(state={}, action) {
                 detailRepoId: null,
                 error: null,
                 fetched: true,
-                fetching: false,
+                fetchingReadme: false,
+                fetchingRepos: false,
                 repoToSearch: null
             }
         }
@@ -26,14 +42,16 @@ const appStateReducer = function(state={}, action) {
                 detailRepoId: null,
                 error: action.error,
                 fetched: false,
-                fetching: false,
+                fetchingReadme: false,
+                fetchingRepos: false,
                 repoToSearch: null
             }
         }
         case "SET_DETAIL_VIEW_ID": {
             return {
                 ...state,
-                detailRepoId: action.repoId
+                detailRepoId: action.repoId,
+                readmeText: null
             }
         }
         default: {

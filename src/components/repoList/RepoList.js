@@ -13,7 +13,7 @@ class RepoList extends Component {
         const appState = this.props.appState;
         const retrievedRepos = this.props.repos.retrieved;
 
-        if(appState.fetching) {
+        if(appState.fetchingRepos) {
             return <img src={require('../../resources/images/loading.gif')} />
         } else if(appState.fetched) {
             return (
@@ -35,7 +35,12 @@ class RepoList extends Component {
         const repo = this.props.repos.retrieved[key];
 
         return (
-            <RepoItem key={repo.id} id={repo.id} name={repo.name} setRepoIdToView={this.props.setRepoIdToView}/>
+            <RepoItem 
+                key={repo.id}
+                id={repo.id}
+                name={repo.name}
+                getRepoReadme={this.props.getRepoReadme}
+                setRepoIdToView={this.props.setRepoIdToView}/>
         )
     }
 }
