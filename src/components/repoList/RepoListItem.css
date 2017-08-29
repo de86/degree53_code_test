@@ -4,19 +4,19 @@
     cursor: pointer;
 }
 
-.listItem:hover {
-    background-color: #e8e8e8;
-}
-
 .listItem:nth-child(odd) {
     background-color: #d8d8d8;
 }
 
+.listItem:hover {
+    background-color: #67e;
+}
+
 .listItem:nth-child(odd):hover {
-    background-color: #c5c5c5;
+    background-color: #67e;
 }
 
 .listItem.active {
-    background-color: #67e !important;
+    background-color: #2b9 !important;
     color: #eee;
 }

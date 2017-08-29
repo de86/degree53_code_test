@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
+import PageControls from './PageControls'
 import RepoListItem from './RepoListItem'
 
 import styles from './RepoList.css'
@@ -24,6 +25,12 @@ class RepoList extends Component {
                     <ul className={styles.repoList}>
                         { Object.keys(retrievedRepos).map(this.renderRepoItem) }
                     </ul>
+                    <PageControls
+                        numberOfRepos={this.props.repos.retrieved.length}
+                        page={this.props.repos.resultsPage}
+                        repoToSearch={this.props.repos.repoToSearch}
+                        searchRepos={this.props.searchRepos}
+                        setResultsPage={this.props.setResultsPage} />
                 </div>
             )
         } else if (appState.error != null) {
@@ -53,7 +60,9 @@ RepoList.PropTypes = {
     appState: PropTypes.object.isRequired,
     repos: PropTypes.object.isRequired,
     getRepoReadme: PropTypes.func.isRequired,
-    setRepoIdToView: PropTypes.func.isRequired
+    setRepoIdToView: PropTypes.func.isRequired,
+    searchRepos: PropTypes.func.isRequired,
+    setResultsPage: PropTypes.func.isRequired
 }
 
 export default RepoList

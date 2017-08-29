@@ -25,7 +25,9 @@ class RepoSearchField extends Component {
 
     handleClick (event) {
         event.preventDefault()
-        this.props.searchRepos(this.input.value)
+
+        // Pass a page value of 1 to reset our resultPage value
+        this.props.searchRepos(this.input.value, 1)
     }
 }
 

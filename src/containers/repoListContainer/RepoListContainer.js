@@ -19,25 +19,31 @@ class RepoListContainer extends Component {
 
         this.searchRepos = this.searchRepos.bind(this)
         this.setRepoIdToView = this.setRepoIdToView.bind(this)
+        this.setResultsPage = this.setResultsPage.bind(this)
     }
 
     render () {
         return (
             <div className={commonStyles.padding}>
-                <RepoSearchField searchRepos={this.searchRepos}/>
+                <RepoSearchField
+                    page={this.props.repos.resultsPage}
+                    searchRepos={this.searchRepos} />
                 <RepoList
                     appState={this.props.appState}
                     repos={this.props.repos}
-                    setRepoIdToView={this.setRepoIdToView} />
+                    setRepoIdToView={this.setRepoIdToView}
+                    searchRepos={this.searchRepos}
+                    setResultsPage={this.props.setResultsPage} />
             </div>
         )
     }
 
     // Puts the app into a pending state while retreiving repos from
-    // github. saves repos in our store if succesfull else saves the error
-    searchRepos (searchString) {
+    // github. saves repos in our store if successful else saves the error
+    searchRepos (searchString, pageNumber) {
+        this.props.setResultsPage(pageNumber)
         this.props.fetchRepoPending(searchString)
-        getRepos(searchString, this.props.fetchRepoSuccess, this.props.fetchRepoFail)
+        getRepos(searchString, pageNumber, this.props.fetchRepoSuccess, this.props.fetchRepoFail)
     }
 
     // Saves the given repo ID in our store
@@ -48,6 +54,10 @@ class RepoListContainer extends Component {
             this.props.setDetailViewId(id)
         }
     }
+
+    setResultsPage (pageNumber) {
+        this.props.setResultsPage(pageNumber)
+    }
 }
 
 RepoListContainer.PropTypes = {
@@ -56,6 +66,7 @@ RepoListContainer.PropTypes = {
     fetchRepoPending: PropTypes.func.isRequired,
     fetchRepoSuccess: PropTypes.func.isRequired,
     fetchRepoFail: PropTypes.func.isRequired,
+    resultsPage: PropTypes.number.isRequired,
     setDetailViewId: PropTypes.func.isRequired
 }
 
@@ -74,7 +85,8 @@ function mapDispatchToProps (dispatch) {
         fetchRepoPending: searchActionCreators.fetchRepoPending,
         fetchRepoSuccess: searchActionCreators.fetchRepoSuccess,
         fetchRepoFail: searchActionCreators.fetchRepoFail,
-        setDetailViewId: detailActionCreators.setDetailViewId
+        setDetailViewId: detailActionCreators.setDetailViewId,
+        setResultsPage: searchActionCreators.setResultsPage
     }, dispatch)
 };
 

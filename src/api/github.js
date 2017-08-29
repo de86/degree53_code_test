@@ -7,10 +7,11 @@ export const config = {
 
 // Gets an array of Repos given a string to search for.
 // Succes and error handlers required
-export const getRepos = (searchString, successHandler, errorHandler) => {
-    axios.get(`${config.getReposUrl}${searchString}`)
+export const getRepos = (searchString, pageNumber, successHandler, errorHandler) => {
+    console.log(`${config.getReposUrl}${searchString}&page=${pageNumber}`)
+    axios.get(`${config.getReposUrl}${searchString}&page=${pageNumber}`)
         .then((response) => {
-            successHandler(response.data.items)
+            successHandler(response.data.items, searchString)
         })
         .catch((err) => {
             errorHandler(err)

@@ -1,0 +1,31 @@
+.pageControls {
+  display: -webkit-flex;
+  display: flex;
+}
+
+.next {
+  cursor: pointer;
+  text-align: right;
+}
+
+.prev {
+  cursor: pointer;
+  text-align: left;
+}
+
+.next:hover,
+.prev:hover {
+  color: #67e;
+}
+
+.pageNum {
+  text-align: center;
+}
+
+.next,
+.prev,
+.pad,
+.pageNum {
+  -webkit-flex: 1;
+  flex: 1;
+}

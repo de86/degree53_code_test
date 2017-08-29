@@ -15,7 +15,8 @@ const appStateReducer = function (state = {}, action) {
     case 'FETCH_README_SUCCESS': {
         return {
             ...state,
-            readmeText: action.readmeText
+            readmeText: action.readmeText,
+            repoToSearch: action.repoToSearch
         }
     }
     case 'FETCH_README_FAIL': {
@@ -34,8 +35,7 @@ const appStateReducer = function (state = {}, action) {
             fetched: true,
             fetching: false,
             fetchingReadme: false,
-            fetchingRepos: false,
-            repoToSearch: null
+            fetchingRepos: false
         }
     }
     case 'FETCH_REPO_FAIL': {

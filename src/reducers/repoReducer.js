@@ -1,4 +1,7 @@
-const repoReducer = function (state = {}, action) {
+const repoReducer = function (state = {
+    retrieved: {},
+    resultsPage: 1
+}, action) {
     switch (action.type) {
     case 'FETCH_REPO_PENDING': {
         return {
@@ -9,13 +12,20 @@ const repoReducer = function (state = {}, action) {
     case 'FETCH_REPO_SUCCESS': {
         return {
             ...state,
-            retrieved: action.repos
+            retrieved: action.repos,
+            repoToSearch: action.repoToSearch
         }
     }
     case 'FETCH_REPO_FAIL': {
         return {
             ...state,
             retrieved: {}
+        }
+    }
+    case 'SET_RESULTS_PAGE': {
+        return {
+            ...state,
+            resultsPage: action.resultsPage
         }
     }
     default: {
