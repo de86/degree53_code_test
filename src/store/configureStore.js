@@ -1,8 +1,8 @@
-import { applyMiddleware, createStore, combineReducers } from 'redux';
-import { createLogger } from 'redux-logger';
-import thunk from 'redux-thunk';
+import { applyMiddleware, createStore, combineReducers } from 'redux'
+import { createLogger } from 'redux-logger'
+import thunk from 'redux-thunk'
 
-import repoReducer from '../reducers/repoReducer';
+import repoReducer from '../reducers/repoReducer'
 import appStateReducer from '../reducers/appStateReducer'
 
 // Combine our multiple imported reducers into one
@@ -10,10 +10,10 @@ import appStateReducer from '../reducers/appStateReducer'
 const reducers = combineReducers({
     repos: repoReducer,
     appState: appStateReducer
-});
+})
 
 // Save our middleare so we can pass this to our store
-const middleware = applyMiddleware(createLogger(), thunk);
+const middleware = applyMiddleware(createLogger(), thunk)
 
 // Create a new data store
-export default createStore(reducers, middleware);
+export default createStore(reducers, middleware)

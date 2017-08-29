@@ -1,32 +1,32 @@
-import React, { Component } from 'react';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
+import React, { Component } from 'react'
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
 
 import RepoDetails from '../../components/repoDetailsView/repoDetails/RepoDetails'
 import RepoDetailsReadme from '../../components/repoDetailsView/repoDetailsReadme/RepoDetailsReadme'
 
-import * as detailActionCreators from '../../actions/detailActionCreators';
+import * as detailActionCreators from '../../actions/detailActionCreators'
 
-import { getReadme } from '../../api/github';
+import { getReadme } from '../../api/github'
 
-import commonStyles from '../../resources/css/common.css';
+import commonStyles from '../../resources/css/common.css'
 
 class RepoDetailView extends Component {
-    constructor(props) {
+    constructor (props) {
         super(props)
 
-        this.getRepoDetails = this.getRepoDetails.bind(this);
-        this.getRepoReadme = this.getRepoReadme.bind(this);
+        this.getRepoDetails = this.getRepoDetails.bind(this)
+        this.getRepoReadme = this.getRepoReadme.bind(this)
     }
 
-    render() {
-        let detailViewContent = null;
+    render () {
+        let detailViewContent = null
 
-        if(this.props.repoId != null) {
-            const repoDetails = this.getRepoDetails(this.props.repoId);
+        if (this.props.repoId != null) {
+            const repoDetails = this.getRepoDetails(this.props.repoId)
 
-            detailViewContent = 
+            detailViewContent =
                 <div className={ commonStyles.padding }>
                     <RepoDetails repo={repoDetails} />
                     <div className={ commonStyles.padding }>
@@ -35,14 +35,14 @@ class RepoDetailView extends Component {
                         </button>
                         { this.props.readmeText ? <RepoDetailsReadme readmeText={this.props.readmeText} /> : null }
                     </div>
-                </div>;
+                </div>
         } else {
-            detailViewContent = 
+            detailViewContent =
                 <div className={ commonStyles.padding }>
                     <h4>Please search for a repository on the left then click on a result to view more details</h4>
                 </div>
         }
-        
+
         return (
             <div>
                 { detailViewContent }
@@ -52,19 +52,19 @@ class RepoDetailView extends Component {
 
     // Returns an object containing a repository's details
     // given an ID
-    getRepoDetails(id) {
+    getRepoDetails (id) {
         let repoToView = {}
         this.props.repos.forEach((repo) => {
-            if(repo.id == this.props.repoId){
-                repoToView = repo;
+            if (repo.id === this.props.repoId) {
+                repoToView = repo
             }
-        });
+        })
 
-        return repoToView;
+        return repoToView
     }
 
-    getRepoReadme(owner, repoName) {
-        getReadme(owner, repoName, this.props.fetchReadmeSuccess, this.props.fetchReadmeFail);
+    getRepoReadme (owner, repoName) {
+        getReadme(owner, repoName, this.props.fetchReadmeSuccess, this.props.fetchReadmeFail)
     }
 }
 
@@ -77,19 +77,19 @@ RepoDetailView.PropTypes = {
 
 }
 
-function mapStateToProps(state){
+function mapStateToProps (state) {
     return {
-        repos:  state.repos.retrieved,
+        repos: state.repos.retrieved,
         repoId: state.appState.detailRepoId,
         readmeText: state.appState.readmeText
     }
 }
 
-function mapDispatchToProps(dispatch) {
+function mapDispatchToProps (dispatch) {
     return bindActionCreators({
         fetchReadmeSuccess: detailActionCreators.fetchReadmeSuccess,
         fetchReadmeFail: detailActionCreators.fetchReadmeFail
     }, dispatch)
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(RepoDetailView);
+export default connect(mapStateToProps, mapDispatchToProps)(RepoDetailView)

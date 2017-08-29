@@ -1,5 +1,5 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from 'react'
+import PropTypes from 'prop-types'
 
 const RepoDetail = (props) => {
     return (
@@ -17,4 +17,4 @@ RepoDetail.propTypes = {
     detail: PropTypes.string.isRequired
 }
 
-export default RepoDetail;
+export default RepoDetail

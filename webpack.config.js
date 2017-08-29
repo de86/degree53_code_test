@@ -1,7 +1,7 @@
 const config = {
     entry: ['./src/index.js'],
     output: {
-        path: __dirname + '/public',
+        path: `${__dirname}/public`,
         filename: 'bundle.js'
     },
     devServer: {
@@ -9,12 +9,15 @@ const config = {
     },
     module: {
         loaders: [
-            { 
+            {
                 test: /\.js$/,
-                loader: 'babel-loader',
+                loaders: [
+                    'babel-loader',
+                    'eslint-loader'
+                ],
                 exclude: /node_modules/
             },
-            { 
+            {
                 test: /\.jsx$/,
                 loader: 'babel-loader',
                 exclude: /node_modules/
@@ -39,7 +42,7 @@ const config = {
             }
         ]
     },
-    devtool: "source-map"
-};
+    devtool: 'source-map'
+}
 
-module.exports = config;
+module.exports = config

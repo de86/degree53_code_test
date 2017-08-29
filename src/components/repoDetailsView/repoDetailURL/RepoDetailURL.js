@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 
 const RepoDetailURL = (props) => {
     return (
@@ -11,4 +11,4 @@ const RepoDetailURL = (props) => {
     )
 }
 
-export default RepoDetailURL;
+export default RepoDetailURL

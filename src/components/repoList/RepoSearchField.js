@@ -1,32 +1,30 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-
-import styles from './RepoSearchField.css';
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 
 class RepoSearchField extends Component {
-    constructor(props) {
-        super(props);
+    constructor (props) {
+        super(props)
 
-        this.handleClick = this.handleClick.bind(this);
+        this.handleClick = this.handleClick.bind(this)
     }
 
-    render() {
+    render () {
         return (
             <div>
                 <h2>Search Repositories</h2>
-                <form onSubmit={this.handleClick}>
+                <form onSubmit={ this.handleClick }>
                     <input
                         type="text"
                         name="repo-search"
-                        ref={(input) => {this.input = input}} />
+                        ref={(input) => { this.input = input }} />
                     <input type="submit" value="Search"></input>
                 </form>
             </div>
         )
     }
 
-    handleClick(event) {
-        event.preventDefault();
+    handleClick (event) {
+        event.preventDefault()
         this.props.searchRepos(this.input.value)
     }
 }
@@ -35,4 +33,4 @@ RepoSearchField.PropTypes = {
     searchRepos: PropTypes.func.isRequired
 }
 
-export default RepoSearchField;
+export default RepoSearchField

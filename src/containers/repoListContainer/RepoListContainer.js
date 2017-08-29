@@ -1,28 +1,27 @@
-import React, { Component } from 'react';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
-import axios from 'axios';
-import PropTypes from 'prop-types';
+import React, { Component } from 'react'
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
 
-import RepoList from '../../components/repoList/RepoList';
-import RepoSearchField from '../../components/repoList/RepoSearchField';
+import RepoList from '../../components/repoList/RepoList'
+import RepoSearchField from '../../components/repoList/RepoSearchField'
 
-import * as searchActionCreators from '../../actions/searchActionCreators';
-import * as detailActionCreators from '../../actions/detailActionCreators';
+import * as searchActionCreators from '../../actions/searchActionCreators'
+import * as detailActionCreators from '../../actions/detailActionCreators'
 
-import { getRepos } from '../../api/github';
+import { getRepos } from '../../api/github'
 
 import commonStyles from '../../resources/css/common.css'
 
 class RepoListContainer extends Component {
-    constructor(props) {
-        super(props);
+    constructor (props) {
+        super(props)
 
-        this.searchRepos = this.searchRepos.bind(this);
-        this.setRepoIdToView = this.setRepoIdToView.bind(this);
+        this.searchRepos = this.searchRepos.bind(this)
+        this.setRepoIdToView = this.setRepoIdToView.bind(this)
     }
 
-    render() {
+    render () {
         return (
             <div className={commonStyles.padding}>
                 <RepoSearchField searchRepos={this.searchRepos}/>
@@ -36,17 +35,17 @@ class RepoListContainer extends Component {
 
     // Puts the app into a pending state while retreiving repos from
     // github. saves repos in our store if succesfull else saves the error
-    searchRepos(searchString) {
-        this.props.fetchRepoPending(searchString);
-        getRepos(searchString, this.props.fetchRepoSuccess, this.props.fetchRepoFail);
+    searchRepos (searchString) {
+        this.props.fetchRepoPending(searchString)
+        getRepos(searchString, this.props.fetchRepoSuccess, this.props.fetchRepoFail)
     }
 
     // Saves the given repo ID in our store
-    setRepoIdToView(id) {
+    setRepoIdToView (id) {
         // Prevent another dispatch and re-render if we are already viewing
         // the given ID
-        if(id != this.props.appState.detailRepoId) {
-            this.props.setDetailViewId(id);
+        if (id !== this.props.appState.detailRepoId) {
+            this.props.setDetailViewId(id)
         }
     }
 }
@@ -61,7 +60,7 @@ RepoListContainer.PropTypes = {
 }
 
 // Makes store data available through props
-function mapStateToProps(state) {
+function mapStateToProps (state) {
     return {
         repos: state.repos,
         appState: state.appState
@@ -70,7 +69,7 @@ function mapStateToProps(state) {
 
 // Allows us to call our action creators from props without the need
 // to wrap them in dispatch()
-function mapDispatchToProps(dispatch) {
+function mapDispatchToProps (dispatch) {
     return bindActionCreators({
         fetchRepoPending: searchActionCreators.fetchRepoPending,
         fetchRepoSuccess: searchActionCreators.fetchRepoSuccess,
@@ -79,4 +78,4 @@ function mapDispatchToProps(dispatch) {
     }, dispatch)
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(RepoListContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(RepoListContainer)

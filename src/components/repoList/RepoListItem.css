@@ -15,3 +15,8 @@
 .listItem:nth-child(odd):hover {
     background-color: #c5c5c5;
 }
+
+.listItem.active {
+    background-color: #67e !important;
+    color: #eee;
+}

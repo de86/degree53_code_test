@@ -1,24 +1,24 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 
-import RepoListItem from './RepoListItem';
+import RepoListItem from './RepoListItem'
 
-import styles from './RepoList.css';
+import styles from './RepoList.css'
 
 class RepoList extends Component {
-    constructor(props) {
-        super(props);
+    constructor (props) {
+        super(props)
 
-        this.renderRepoItem = this.renderRepoItem.bind(this);
+        this.renderRepoItem = this.renderRepoItem.bind(this)
     }
-    
-    render(){
-        const appState = this.props.appState;
-        const retrievedRepos = this.props.repos.retrieved;
 
-        if(appState.fetchingRepos) {
+    render () {
+        const appState = this.props.appState
+        const retrievedRepos = this.props.repos.retrieved
+
+        if (appState.fetchingRepos) {
             return <img src={require('../../resources/images/loading.gif')} />
-        } else if(appState.fetched) {
+        } else if (appState.fetched) {
             return (
                 <div>
                     <ul className={styles.repoList}>
@@ -26,20 +26,22 @@ class RepoList extends Component {
                     </ul>
                 </div>
             )
-        } else if(appState.error != null){
+        } else if (appState.error != null) {
             return <h2>Oops, something went wrong. Try searching again!</h2>
         } else {
-            return null;
-        };
+            return null
+        }
     }
 
-    renderRepoItem(key) {
-        const repo = this.props.repos.retrieved[key];
+    renderRepoItem (key) {
+        const repo = this.props.repos.retrieved[key]
+        const active = this.props.appState.detailRepoId === repo.id
 
         return (
-            <RepoListItem 
+            <RepoListItem
                 key={repo.id}
                 id={repo.id}
+                isActive={active}
                 name={repo.name}
                 getRepoReadme={this.props.getRepoReadme}
                 setRepoIdToView={this.props.setRepoIdToView}/>
@@ -54,4 +56,4 @@ RepoList.PropTypes = {
     setRepoIdToView: PropTypes.func.isRequired
 }
 
-export default RepoList;
+export default RepoList
