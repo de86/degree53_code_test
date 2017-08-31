@@ -1,5 +1,5 @@
 const appStateReducer = function (state = {
-    detailRepoId: null,
+    detailViewRepo: null,
     error: null,
     fetched: false,
     fetchedReadme: false,
@@ -49,10 +49,10 @@ const appStateReducer = function (state = {
             fetchingRepos: false
         }
     }
-    case 'SET_DETAIL_VIEW_ID': {
+    case 'SET_DETAIL_VIEW_REPO': {
         return {
             ...state,
-            detailRepoId: action.repoId,
+            detailViewRepo: action.repo,
             readmeText: null
         }
     }

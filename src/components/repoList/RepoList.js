@@ -51,7 +51,7 @@ class RepoList extends Component {
                 isActive={active}
                 name={repo.name}
                 getRepoReadme={this.props.getRepoReadme}
-                setRepoIdToView={this.props.setRepoIdToView}/>
+                setDetailViewRepo={this.props.setDetailViewRepo}/>
         )
     }
 }
@@ -60,7 +60,7 @@ RepoList.PropTypes = {
     appState: PropTypes.object.isRequired,
     repos: PropTypes.object.isRequired,
     getRepoReadme: PropTypes.func.isRequired,
-    setRepoIdToView: PropTypes.func.isRequired,
+    setDetailViewRepo: PropTypes.func.isRequired,
     searchRepos: PropTypes.func.isRequired,
     setResultsPage: PropTypes.func.isRequired
 }

@@ -18,7 +18,7 @@ class RepoListContainer extends Component {
         super(props)
 
         this.searchRepos = this.searchRepos.bind(this)
-        this.setRepoIdToView = this.setRepoIdToView.bind(this)
+        this.setDetailViewRepo = this.setDetailViewRepo.bind(this)
         this.setResultsPage = this.setResultsPage.bind(this)
     }
 
@@ -31,7 +31,7 @@ class RepoListContainer extends Component {
                 <RepoList
                     appState={this.props.appState}
                     repos={this.props.repos}
-                    setRepoIdToView={this.setRepoIdToView}
+                    setDetailViewRepo={this.setDetailViewRepo}
                     searchRepos={this.searchRepos}
                     setResultsPage={this.props.setResultsPage} />
             </div>
@@ -47,11 +47,17 @@ class RepoListContainer extends Component {
     }
 
     // Saves the given repo ID in our store
-    setRepoIdToView (id) {
+    setDetailViewRepo (repoId) {
         // Prevent another dispatch and re-render if we are already viewing
         // the given ID
-        if (id !== this.props.appState.detailRepoId) {
-            this.props.setDetailViewId(id)
+        if (this.props.appState.detailViewRepo == null || repoId !== this.props.appState.detailViewRepo.detailRepoId) {
+            let detailRepo = {}
+            this.props.repos.retrieved.forEach((repo) => {
+                if (repo.id === repoId) {
+                    detailRepo = repo
+                }
+            })
+            this.props.setDetailViewRepo(detailRepo)
         }
     }
 
@@ -67,7 +73,7 @@ RepoListContainer.PropTypes = {
     fetchRepoSuccess: PropTypes.func.isRequired,
     fetchRepoFail: PropTypes.func.isRequired,
     resultsPage: PropTypes.number.isRequired,
-    setDetailViewId: PropTypes.func.isRequired
+    setDetailViewRepo: PropTypes.func.isRequired
 }
 
 // Makes store data available through props
@@ -85,7 +91,7 @@ function mapDispatchToProps (dispatch) {
         fetchRepoPending: searchActionCreators.fetchRepoPending,
         fetchRepoSuccess: searchActionCreators.fetchRepoSuccess,
         fetchRepoFail: searchActionCreators.fetchRepoFail,
-        setDetailViewId: detailActionCreators.setDetailViewId,
+        setDetailViewRepo: detailActionCreators.setDetailViewRepo,
         setResultsPage: searchActionCreators.setResultsPage
     }, dispatch)
 };

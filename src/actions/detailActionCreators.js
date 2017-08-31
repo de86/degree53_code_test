@@ -1,7 +1,7 @@
-export const setDetailViewId = (id) => {
+export const setDetailViewRepo = (repo) => {
     return {
-        type: 'SET_DETAIL_VIEW_ID',
-        repoId: id
+        type: 'SET_DETAIL_VIEW_REPO',
+        repo: repo
     }
 }
 

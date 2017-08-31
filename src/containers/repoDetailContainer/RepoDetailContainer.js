@@ -16,21 +16,20 @@ class RepoDetailView extends Component {
     constructor (props) {
         super(props)
 
-        this.getRepoDetails = this.getRepoDetails.bind(this)
         this.getRepoReadme = this.getRepoReadme.bind(this)
     }
 
     render () {
         let detailViewContent = null
 
-        if (this.props.repoId != null) {
-            const repoDetails = this.getRepoDetails(this.props.repoId)
+        if (this.props.detailViewRepo != null) {
+            const repo = this.props.detailViewRepo
 
             detailViewContent =
                 <div className={ commonStyles.padding }>
-                    <RepoDetails repo={repoDetails} />
+                    <RepoDetails repo={repo} />
                     <div className={ commonStyles.padding }>
-                        <button onClick={() => this.getRepoReadme(repoDetails.owner.login, repoDetails.name)}>
+                        <button onClick={() => this.getRepoReadme(repo.owner.login, repo.name)}>
                             View readme
                         </button>
                         { this.props.readmeText ? <RepoDetailsReadme readmeText={this.props.readmeText} /> : null }
@@ -50,19 +49,6 @@ class RepoDetailView extends Component {
         )
     }
 
-    // Returns an object containing a repository's details
-    // given an ID
-    getRepoDetails (id) {
-        let repoToView = {}
-        this.props.repos.forEach((repo) => {
-            if (repo.id === this.props.repoId) {
-                repoToView = repo
-            }
-        })
-
-        return repoToView
-    }
-
     getRepoReadme (owner, repoName) {
         getReadme(owner, repoName, this.props.fetchReadmeSuccess, this.props.fetchReadmeFail)
     }
@@ -80,7 +66,7 @@ RepoDetailView.PropTypes = {
 function mapStateToProps (state) {
     return {
         repos: state.repos.retrieved,
-        repoId: state.appState.detailRepoId,
+        detailViewRepo: state.appState.detailViewRepo,
         readmeText: state.appState.readmeText
     }
 }
