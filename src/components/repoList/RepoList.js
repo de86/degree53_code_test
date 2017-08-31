@@ -42,7 +42,11 @@ class RepoList extends Component {
 
     renderRepoItem (key) {
         const repo = this.props.repos.retrieved[key]
-        const active = this.props.appState.detailRepoId === repo.id
+
+        let active = false
+        if (this.props.appState.detailViewRepo != null) {
+            active = this.props.appState.detailViewRepo.id === repo.id
+        }
 
         return (
             <RepoListItem
