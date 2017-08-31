@@ -1,3 +1,4 @@
 .repoList {
+    word-wrap: break-word;
     padding: 1.4em 0 0;
 }

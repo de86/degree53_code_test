@@ -1,20 +1,18 @@
-const appStateReducer = function (state = {}, action) {
+const appStateReducer = function (state = {
+    detailRepoId: null,
+    error: null,
+    fetched: false,
+    fetchedReadme: false,
+    fetchingReadme: false,
+    fetchingRepos: false,
+    readmeText: null,
+    repoToSearch: null
+}, action) {
     switch (action.type) {
-    case 'FETCH_REPO_PENDING': {
-        return {
-            ...state,
-            detailRepoId: null,
-            error: null,
-            fetched: false,
-            fetching: true,
-            fetchingReadme: false,
-            fetchingRepos: true,
-            repoToSearch: action.repoToSearch
-        }
-    }
     case 'FETCH_README_SUCCESS': {
         return {
             ...state,
+            fetchedReadme: true,
             readmeText: action.readmeText,
             repoToSearch: action.repoToSearch
         }
@@ -22,32 +20,33 @@ const appStateReducer = function (state = {}, action) {
     case 'FETCH_README_FAIL': {
         return {
             ...state,
+            fetchedReadme: false,
             fetchingReadme: false,
             readmeText: action.failText,
             error: action.error
         }
     }
+    case 'FETCH_REPO_PENDING': {
+        return {
+            ...state,
+            fetched: false,
+            fetchingRepos: true,
+            repoToSearch: action.repoToSearch
+        }
+    }
     case 'FETCH_REPO_SUCCESS': {
         return {
             ...state,
-            detailRepoId: null,
-            error: null,
             fetched: true,
-            fetching: false,
-            fetchingReadme: false,
             fetchingRepos: false
         }
     }
     case 'FETCH_REPO_FAIL': {
         return {
             ...state,
-            detailRepoId: null,
             error: action.error,
             fetched: false,
-            fetching: false,
-            fetchingReadme: false,
-            fetchingRepos: false,
-            repoToSearch: null
+            fetchingRepos: false
         }
     }
     case 'SET_DETAIL_VIEW_ID': {
@@ -58,7 +57,9 @@ const appStateReducer = function (state = {}, action) {
         }
     }
     default: {
-        return state
+        return {
+            ...state
+        }
     }
     }
 }
